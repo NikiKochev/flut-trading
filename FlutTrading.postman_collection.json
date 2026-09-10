@@ -1,0 +1,83 @@
+{
+  "info": {
+    "name": "Flut Trading API",
+    "description": "Collection covering the two Flut Trading endpoints: JSON-based trade requests and text-file uploads using the original assignment input format.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Trade (JSON)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"schuurs\": [\n    {\n      \"schuur\": 1,\n      \"flutes\": [\n        { \"prices\": [7, 3, 11, 9, 10] }\n      ]\n    },\n    {\n      \"schuur\": 2,\n      \"flutes\": [\n        { \"prices\": [1, 2, 3, 4, 10, 16, 10, 4, 16] }\n      ]\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/fluts/trade",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "fluts",
+            "trade"
+          ]
+        },
+        "description": "Submits schuurs (piles) as JSON and returns the maximum achievable profit together with the possible flut counts that achieve it."
+      },
+      "response": []
+    },
+    {
+      "name": "Trade (File upload)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/fluts/trade/file",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "fluts",
+            "trade",
+            "file"
+          ]
+        },
+        "description": "Uploads the original assignment text-file format as multipart/form-data (field name: file). Example content:\n\n2\n5 7 3 11 9 10\n9 1 2 3 4 10 16 10 4 16\n0\n\nSelect a local .txt file for the 'file' form field before sending."
+      },
+      "response": []
+    }
+  ]
+}
